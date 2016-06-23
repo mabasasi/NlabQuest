@@ -1,6 +1,6 @@
 package action.skill;
 
-import action.BaseAttackAction;
+import action.AbstractAttackSkill;
 import unit.Unit;
 
 /**
@@ -9,16 +9,15 @@ import unit.Unit;
  * ビルダーを使って初期化する.
  * @author shunichi
  */
-public class DefaultAttack extends BaseAttackAction {
+public class DefaultAttack extends AbstractAttackSkill {
 
 	public DefaultAttack(Builder builder) {
 		super(builder);
 	}
 
 	@Override
-	protected double calculation(Unit own, Unit tg) {
-		return own.getAtk() + getPoint() - tg.getDef();
+	protected double damage(Unit own, Unit tg) {
+		return own.getAtk() + this.getPoint() - tg.getDef();
 	}
-
 	
 }

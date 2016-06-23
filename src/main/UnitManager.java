@@ -3,6 +3,7 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 
+import command.DefaultAICommand;
 import unit.Unit;
 
 /**
@@ -32,9 +33,11 @@ public class UnitManager {
 	
 	/**
 	 * 敵ユニットを追加する.
+	 * TODO 強制的にAIを設定させているが、手動にしたい.
 	 * @param unit 敵ユニット
 	 */
 	public void addEnemyUnit(Unit unit) {
+		unit.setCommand(new DefaultAICommand());
 		all.add(unit);
 		enemy.add(unit);
 	}

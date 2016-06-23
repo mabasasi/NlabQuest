@@ -26,6 +26,16 @@ public class ActionData {
 	/**全体攻撃フラグ*/
 	private final boolean isEntireAction;
 	
+	public ActionData() {
+		this.name = "";
+		this.showName = "";
+		this.explanation = ":";
+		this.useMp = 0;
+		this.point = 0;
+		this.targetUnit = null;
+		this.isEntireAction = true;
+	}
+	
 	public ActionData(Builder builder) {
         this.name = builder.name;
         this.showName = builder.showName;

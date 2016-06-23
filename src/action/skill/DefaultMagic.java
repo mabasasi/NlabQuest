@@ -1,6 +1,6 @@
 package action.skill;
 
-import action.BaseMagicAction;
+import action.AbstractMagicSkill;
 import unit.Unit;
 
 /**
@@ -9,15 +9,15 @@ import unit.Unit;
  * ビルダーを使って初期化する.
  * @author shunichi
  */
-public class DefaultMagic extends BaseMagicAction {
+public class DefaultMagic extends AbstractMagicSkill {
 
 	public DefaultMagic(Builder builder) {
 		super(builder);
 	}
 
 	@Override
-	protected double calculation(Unit own, Unit tg) {
-		return getPoint() - tg.getDef();
+	protected double damage(Unit own, Unit tg) {
+		return this.getPoint() - tg.getDef();
 	}
 
 }

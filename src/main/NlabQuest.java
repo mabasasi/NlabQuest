@@ -15,12 +15,12 @@ public class NlabQuest {
 		//　http://dq5nds.myafil.net/message_battle.html
 		
 		UnitManager manager = new UnitManager();
-		manager.addPartyUnit(UnitFactory.hero("Kさい"));
-		manager.addPartyUnit(UnitFactory.wizard("Iぶせ"));
-		manager.addPartyUnit(UnitFactory.sage("Tなか"));
-		manager.addPartyUnit(UnitFactory.warrior("Mしげ"));
+		manager.addPartyUnit(UnitFactory.hero("かさい"));
+		manager.addPartyUnit(UnitFactory.wizard("いぬぶせ"));
+		manager.addPartyUnit(UnitFactory.sage("たなか"));
+		manager.addPartyUnit(UnitFactory.warrior("もりしげ"));
 		
-		manager.addEnemyUnit(UnitFactory.kingDevil("Eさわ"));
+		manager.addEnemyUnit(UnitFactory.kingDevil("えびさわ"));
 
 		
 		
@@ -28,7 +28,7 @@ public class NlabQuest {
 		int turn = 1;
 		main:
 		while(true) {
-			System.out.println("\n"+turn+" ターン目：");
+			System.out.println("\n<<"+(turn++)+" ターン目>>");
 			manager.showStatus();
 			Toolkit.getDefaultToolkit().beep();
 			

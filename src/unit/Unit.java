@@ -13,7 +13,7 @@ import main.UnitManager;
  * 派生ユニットは、このクラスをベースとする.
  * @author shunichi
  */
-public class Unit extends UnitData {
+public class Unit extends BaseUnit {
 	
 	
 	public Unit(Builder builder) {

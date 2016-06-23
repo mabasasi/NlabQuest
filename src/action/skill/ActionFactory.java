@@ -12,39 +12,47 @@ public class ActionFactory  {
 	
 	public static Action singleAttack() {
 		return new DefaultAttack(Action.builder().name("通常攻撃").showName("こうげき")
-				.explanation("通常攻撃")
+				.note("通常攻撃")
 				.useMp(0).point(0)
-				.targetUnit(TargetUnit.enemy).isEntireAction(false));
+				.targetUnit(TargetUnit.enemy).isEntire(false).isHeal(false));
 	}
 	
 	public static Action slash() {
 		return new DefaultAttack(Action.builder().name("斬撃").showName("ざんげき")
-				.explanation("斬撃攻撃 敵の防御力を半減させる")
+				.note("斬撃攻撃 敵の防御力を半減させる")
 				.useMp(8).point(10)
-				.targetUnit(TargetUnit.enemy).isEntireAction(false));
+				.targetUnit(TargetUnit.enemy).isEntire(false).isHeal(false));
 	}
 	
 	
 	public static Action mera() {
 		return new DefaultMagic(Action.builder().name("メラ").showName("メラ")
-				.explanation("炎単体攻撃")
+				.note("炎単体攻撃")
 				.useMp(10).point(35)
-				.targetUnit(TargetUnit.enemy).isEntireAction(false));
+				.targetUnit(TargetUnit.enemy).isEntire(false).isHeal(false));
 	}
 	
 	public static Action ionazun() {
 		return new DefaultMagic(Action.builder().name("イオナズン").showName("イオナズン")
-				.explanation("爆発全体攻撃")
+				.note("爆発全体攻撃")
 				.useMp(25).point(100)
-				.targetUnit(TargetUnit.enemy).isEntireAction(true));
+				.targetUnit(TargetUnit.enemy).isEntire(true).isHeal(false));
 	}
 	
 	public static Action hoimi() {
 		return new DefaultHeal(Action.builder().name("ホイミ").showName("ホイミ")
-				.explanation("単体回復")
+				.note("単体回復")
 				.useMp(10).point(30)
-				.targetUnit(TargetUnit.party).isEntireAction(false));
+				.targetUnit(TargetUnit.party).isEntire(false).isHeal(true));
 	}
 	
+	
+	
+//	public static Action descript() {
+//		return new BaseDescriptionAction(Action.builder().name("せつめい").showName("せつめい")
+//				.explanation("説明を表示します.")
+//				.useMp(0).point(0)
+//				.targetUnit(TargetUnit.own).isEntireAction(false));
+//	}
 	
 }

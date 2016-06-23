@@ -56,7 +56,7 @@ public class Command {
 	 */
 	public List<Unit> showTarget(Action action, List<Unit> units) {
 		// 全体=trueなら、リスト全体を対象
-		if (action.isEntireAction()) {
+		if (action.isEntire()) {
 			return units;
 		}
 
@@ -125,7 +125,7 @@ public class Command {
 		
 		for (Action act : acts) {
 			sb.append(i++).append("=").append(act.getName());
-			sb.append("(").append(act.useMp()).append(")");
+			sb.append("(").append(act.mp()).append(")");
 			sb.append("、");
 		}
 		

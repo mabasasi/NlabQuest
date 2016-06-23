@@ -12,7 +12,7 @@ import command.Command;
  * 内部にビルダーを実装してるんで、それ使って初期化する.
  * @author morishige
  */
-public class UnitData {
+public class BaseUnit {
 	
 	/**職業*/
 	private final String job;
@@ -36,7 +36,7 @@ public class UnitData {
 	/**防御力*/
 	private int def;
 	
-	public UnitData(Builder builder) {
+	public BaseUnit(Builder builder) {
 		this.job = builder.job;
 		this.name = builder.name;
 		this.maxHp = builder.hp;
@@ -104,7 +104,7 @@ public class UnitData {
 	}
 	
 	/**
-	 * ユニットの状態を確認する.
+	 * ユニットの生存状態を確認する.
 	 * @return trueで生存、falseで死亡
 	 */
 	public boolean isSurvive() {
@@ -119,6 +119,15 @@ public class UnitData {
 				getName(), getJob(), getHp(), getMaxHp(), getMp(), getMaxMp()));
 	}
 	
+	/**
+	 * ユニットのステータスと、生存状態を表示する.
+	 */
+	public void showStatusWithSurvive() {
+		showStatus();
+		if (!isSurvive()) {
+			System.out.println(String.format("%s は ちからつきた。", getName()));
+		}
+	}
 	
 	
 	

@@ -1,23 +1,27 @@
 package action.skill;
 
-import action.BaseHealAction;
+import action.AbstractHealSkill;
 import unit.Unit;
 
 /**
- * 回復魔法のベースクラス.
- * 回復魔法は、このクラスを継承するべし.
+ * 回復魔法のスキル.
+ * 回復量を point として扱う.
  * ビルダーを使って初期化する.
  * @author shunichi
  */
-public class DefaultHeal extends BaseHealAction {
+public class DefaultHeal extends AbstractHealSkill {
 
 	public DefaultHeal(Builder builder) {
 		super(builder);
 	}
 
 	@Override
-	protected double calculation(Unit own, Unit tg) {
-		return getPoint();
+	protected double damage(Unit own, Unit tg) {
+		if (own.getHp() == own.getMaxHp()) {
+			return 0;
+		}
+		
+		return this.getPoint();
 	}
 
 }
