@@ -32,7 +32,7 @@ public class DefaultAICommand extends Command {
 		
 		// MPチェック(足りないなら通常攻撃)
 		Action act = getAction(n);
-		if (act == null || own.getMp() <= act.mp()) {
+		if (act == null || own.getMp() <= act.getMp()) {
 			return getAction(0);
 		}
 		return act;

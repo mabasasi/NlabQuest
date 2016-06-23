@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Toolkit;
+import java.util.Scanner;
 
 import unit.Unit;
 import unit.UnitFactory;
@@ -10,20 +11,27 @@ import unit.UnitFactory;
  * @author morishige
  */
 public class NlabQuest {
+
+	//　http://dq5nds.myafil.net/message_battle.html
+	
+	public static Scanner scanner = new Scanner(System.in);
 	
 	public static void main(String[] args) throws InterruptedException {
-		//　http://dq5nds.myafil.net/message_battle.html
 		
 		UnitManager manager = new UnitManager();
-		manager.addPartyUnit(UnitFactory.hero("かさい"));
-		manager.addPartyUnit(UnitFactory.wizard("いぬぶせ"));
-		manager.addPartyUnit(UnitFactory.sage("たなか"));
-		manager.addPartyUnit(UnitFactory.warrior("もりしげ"));
+		manager.addPartyUnit(UnitFactory.hero("Aさん"));
+		manager.addPartyUnit(UnitFactory.wizard("Bさん"));
+		manager.addPartyUnit(UnitFactory.sage("Cさん"));
+		manager.addPartyUnit(UnitFactory.warrior("Dさん"));
 		
-		manager.addEnemyUnit(UnitFactory.kingDevil("えびさわ"));
+		manager.addEnemyUnit(UnitFactory.kingDevil("まおー"));
 
 		
 		
+		
+		
+		
+		System.out.println("help 実装したんで、使って下さい。");
 		// 無限ループ(HPが0になったら終了)
 		int turn = 1;
 		main:
@@ -36,13 +44,7 @@ public class NlabQuest {
 			for (Unit unit : manager.getUnits(null, TargetUnit.all)) {
 				// 生存しているなら行動する
 				if (unit.isSurvive()) {
-					// 行動
-					System.out.println();
-					Toolkit.getDefaultToolkit().beep();
-					
-					unit.showStatus();
 					unit.command(manager, false);
-					// 全体のチェック
 					if (!manager.isSurvive()) {
 						break main;
 					}

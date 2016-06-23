@@ -65,6 +65,8 @@ public class UnitManager {
 			List<Unit> owns = new ArrayList<>();
 			owns.add(own);
 			return owns;
+		case none:
+			return new ArrayList<>();
 		}
 		
 		return null;

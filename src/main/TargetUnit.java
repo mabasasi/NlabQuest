@@ -13,4 +13,6 @@ public enum TargetUnit {
 	enemy,
 	/**自分*/
 	own,
+	/**なし*/
+	none,
 }

@@ -18,9 +18,6 @@ public class BaseUnit {
 	private final String job;
 	/**名前*/
 	private String name;
-
-	/**スキル*/
-	private Command command;
 	
 	/**最大HP*/
 	private final int maxHp;
@@ -35,6 +32,13 @@ public class BaseUnit {
 	private int atk;
 	/**防御力*/
 	private int def;
+	/**スピード*/
+	private int spd;
+	/**運*/
+	private int luck;
+	
+	/**スキル*/
+	private Command command;
 	
 	public BaseUnit(Builder builder) {
 		this.job = builder.job;
@@ -58,27 +62,18 @@ public class BaseUnit {
 		this.name = name;
 	}
 	
-//	/**
-//	 * ユニットの実行できるコマンドを実装する.
-//	 * @param act アクションコマンド
-//	 */
-//	public void addAction(Action act) {
-//		System.out.println(String.format("%s は %s をおぼえた!", getName(), act.getName()));
-//		command.addAction(act);
-//	}
-	
 	/**
 	 * ユニットのAIを設定する.
 	 * @param command AIコマンド
 	 */
 	public void setCommand(Command command) {
-		command.addAction(this.command.getActionList());
+		command.addAction(this.command.getActionList().toArray(new Action[0]));
 		this.command = command;
 	}
 	
 	/**
 	 * ユニットの現在HPを設定する.
-	 * <p>0以下は0に修正する.</p>
+	 * 0以下は0に修正する.
 	 * @param hp 現在HP
 	 */
 	public void setHp(int hp) {
@@ -93,82 +88,100 @@ public class BaseUnit {
 	
 	/**
 	 * ユニットの現在Mpを設定する.
-	 * <p>0以下は0に修正する.</p>
-	 * @param mp 現在Mp
+	 * 0以下は0に修正する.
+	 * @param mp 現在MP
 	 */
 	public void setMp(int mp) {
 		this.mp = mp;
 		if (getMp() < 0) {
 			this.mp = 0;
 		}
-	}
-	
-	/**
-	 * ユニットの生存状態を確認する.
-	 * @return trueで生存、falseで死亡
-	 */
-	public boolean isSurvive() {
-		return (getHp() > 0);
-	}
-	
-	/**
-	 * ユニットのステータスを表示する.
-	 */
-	public void showStatus() {
-		System.out.println(String.format("%s[%s] HP:%d/%d MP:%d/%d",
-				getName(), getJob(), getHp(), getMaxHp(), getMp(), getMaxMp()));
-	}
-	
-	/**
-	 * ユニットのステータスと、生存状態を表示する.
-	 */
-	public void showStatusWithSurvive() {
-		showStatus();
-		if (!isSurvive()) {
-			System.out.println(String.format("%s は ちからつきた。", getName()));
+		if (getMp() > getMaxMp()) {
+			this.mp = getMaxHp();
 		}
 	}
 	
-	
-	
-	public Command getCommand() {
-		return command;
-	}
-	
+
+
+
+	/**
+	 * ユニットの職業を取得する.
+	 * @return 職業
+	 */
 	public String getJob() {
 		return job;
 	}
 	
+	/**
+	 * ユニットの名前を取得する.
+	 * @return 名前
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * ユニットの最大HPを取得する.
+	 * @return 最大HP
+	 */
 	public int getMaxHp() {
 		return maxHp;
 	}
 	
+	/**
+	 * ユニットの最大MPを取得する.
+	 * @return 最大MP
+	 */
 	public int getMaxMp() {
 		return maxMp;
 	}
 	
+	/**
+	 * ユニットのHPを取得する.
+	 * @return 現在HP
+	 */
 	public int getHp() {
 		return hp;
 	}
 	
+	/**
+	 * ユニットのMPを取得する.
+	 * @return 現在MP
+	 */
 	public int getMp() {
 		return mp;
 	}
 	
+	/**
+	 * ユニットの攻撃力を取得する.
+	 * @return 攻撃力
+	 */
 	public int getAtk() {
 		return atk;
 	}
 	
+	/**
+	 * ユニットの防御力を取得する.
+	 * @return 防御力
+	 */
 	public int getDef() {
 		return def;
 	}
 	
+	/**
+	 * ユニットのコマンドクラスを取得する.
+	 * @return　コマンドクラス
+	 */
+	public Command getCommand() {
+		return command;
+	}
 	
 	
+	
+	/**
+	 * ユニットのビルダーを生成する.
+	 * @return ユニット・ビルダー
+	 */
 	public static Builder builder() {
 		return new Builder();
 	}
@@ -185,6 +198,8 @@ public class BaseUnit {
 		private int mp;
 		private int atk;
 		private int def;
+		private int spd;
+		private int luck;
 		
 		private List<Action> skill;
 		
@@ -193,37 +208,93 @@ public class BaseUnit {
 			skill.add(ActionFactory.singleAttack());
 		}
 		
-		
+		/**
+		 * ユニットの職業を指定する.
+		 * @param job 職業
+		 * @return this
+		 */
 		public Builder job(String job) {
 			this.job = job;
 			return this;
 		}
 		
+		/**
+		 * ユニットの名前を指定する.
+		 * @param name 名前
+		 * @return this
+		 */
 		public Builder name(String name) {
 			this.name = name;
 			return this;
 		}
 		
+		/**
+		 * ユニットのHPを指定する.
+		 * @param hp HP
+		 * @return this
+		 */
 		public Builder hp(int hp) {
 			this.hp = hp;
 			return this;
 		}
 		
+		/**
+		 * ユニットのMPを指定する.
+		 * @param mp MP
+		 * @return this
+		 */
 		public Builder mp(int mp) {
 			this.mp = mp;
 			return this;
 		}
 		
+		/**
+		 * ユニットの攻撃力を指定する.
+		 * @param atk 攻撃力
+		 * @return this
+		 */
 		public Builder atk(int atk) {
 			this.atk = atk;
 			return this;
 		}
 		
+		/**
+		 * ユニットの防御力を指定する.
+		 * @param def 防御力
+		 * @return this
+		 */
 		public Builder def(int def) {
 			this.def = def;
 			return this;
 		}
 		
+		/**
+		 * ユニットの速度を指定する.
+		 * 命中、回避に影響する.
+		 * @param spd 速度
+		 * @return this
+		 */
+		public Builder spd(int spd) {
+			this.spd = spd;
+			return this;
+		}
+		
+		/**
+		 * ユニットの運を指定する.
+		 * 命中、回避、会心に影響する.
+		 * @param luck 運
+		 * @return this
+		 */
+		public Builder luck(int luck) {
+			this.luck = luck;
+			return this;
+		}
+		
+		/**
+		 * ユニットのアクションを指定する.
+		 * @param action アクション(内部はリスト)
+		 * @return this
+		 */
 		public Builder action(Action action) {
 			skill.add(action);
 			return this;

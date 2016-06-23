@@ -8,7 +8,7 @@ import unit.Unit;
  * ビルダーを使って初期化する.
  * @author shunichi
  */
-public abstract class AbstractAttackSkill extends Action {
+public abstract class AbstractAttackSkill extends AbstractAction {
 
 	public AbstractAttackSkill(Builder builder) {
 		super(builder);

@@ -5,28 +5,19 @@ import java.util.List;
 import java.util.Scanner;
 
 import action.Action;
+import action.skill.ActionFactory;
+import main.NlabQuest;
 import unit.Unit;
 
 /**
  * コマンド管理クラス.
  * @author shunichi
  */
-public class Command {
-	private static Scanner scanner = new Scanner(System.in);
-	private List<Action> skill;
+public class Command extends BaseCommand {
+	private static Scanner scanner = NlabQuest.scanner;
 	
 	public Command() {
-		skill = new ArrayList<>();
-	}
-	
-	/**
-	 * アクションを追加する.
-	 * @param acts アクション
-	 */
-	public void addAction(Action... acts) {
-		for (Action act : acts) {
-			skill.add(act);
-		}
+		super();
 	}
 	
 	/**
@@ -36,11 +27,15 @@ public class Command {
 	 */
 	public Action showMenu(Unit own) {
 		System.out.println(String.format("%s はどうする？", own.getName()));
-		System.out.println(menuMessage(skill));
+		System.out.println(menuMessage(getActionList()));
 		System.out.print("コマンド : ");
 		
-		String in = scanner.nextLine();
-		try {
+		String in = scanner.next();
+		try {			
+			if (isHelp(in)) {
+				return ActionFactory.descript();
+			}
+			
 			int n = Integer.valueOf(in);
 			return getAction(n);
 		} catch (NumberFormatException ex) {
@@ -71,7 +66,7 @@ public class Command {
 		System.out.println(targetMessage(units));
 		System.out.print("コマンド : ");
 		
-		String in = scanner.nextLine();
+		String in = scanner.next();
 		try {
 			int n = Integer.valueOf(in);
 			list.add(units.get(n));
@@ -82,34 +77,21 @@ public class Command {
 	}
 	
 	
+
+	
+
+	
 	/**
-	 * アクションを取得する.
-	 * @param index インデックス
-	 * @return アクション, nullで失敗
+	 * ヘルプコマンドであるか.
+	 * @param input 入力文字列
+	 * @return trueでヘルプ実装
 	 */
-	public Action getAction(int index) {
-		if (index < 0 || skill.size() <= index) {
-			return null;
+	private boolean isHelp(String input) {
+		if (input.equals("h") || input.equals("help") || input.equals("-1")) {
+			return true;
 		}
-		return skill.get(index);
+		return false;
 	}
-	
-	/**
-	 * アクションの配列を取得する.
-	 * @return アクション配列
-	 */
-	public Action[] getActionList() {
-		return skill.toArray(new Action[0]);
-	}
-	
-	/**
-	 * コマンドの数を取得.
-	 * @return コマンド数
-	 */
-	public int getActionSize() {
-		return skill.size();
-	}
-	
 	
 	
 	
@@ -125,7 +107,7 @@ public class Command {
 		
 		for (Action act : acts) {
 			sb.append(i++).append("=").append(act.getName());
-			sb.append("(").append(act.mp()).append(")");
+			sb.append("(").append(act.getMp()).append(")");
 			sb.append("、");
 		}
 		
