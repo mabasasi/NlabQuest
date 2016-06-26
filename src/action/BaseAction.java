@@ -1,5 +1,6 @@
 package action;
 
+import action.effect.Effect;
 import main.TargetUnit;
 
 /**
@@ -22,6 +23,8 @@ public class BaseAction {
 	
 	/**ターゲット*/
 	private final TargetUnit targetUnit;
+	/**効果*/
+	private final Effect effect;
 	/**全体攻撃フラグ*/
 	private final boolean isEntire;
 	/**回復フラグ*/
@@ -36,6 +39,7 @@ public class BaseAction {
         this.mp = builder.mp;
         this.point = builder.point;
         this.targetUnit = builder.targetUnit;
+        this.effect = builder.effect;
         this.isEntire = builder.isEntire;
         this.isHeal = builder.isHeal;
         this.isReact = builder.isReact;
@@ -82,11 +86,19 @@ public class BaseAction {
 	}
 	
 	/**
-	 * アクションの全体攻撃フラグを取得する.
-	 * @return trueで全体アクション
+	 * アクションの対象を取得する.
+	 * @return 対象
 	 */
 	public TargetUnit getTargetUnit() {
 		return this.targetUnit;
+	}
+	
+	/**
+	 * アクションのエフェクトを取得する.
+	 * @return エフェクト
+	 */
+	public Effect getEffect() {
+		return this.effect;
 	}
 	
 	/**
@@ -137,6 +149,7 @@ public class BaseAction {
 		private int mp;
 		private int point;
 		private TargetUnit targetUnit;
+		private Effect effect;
 		private boolean isEntire;
 		private boolean isHeal;
 		private boolean isReact;
@@ -149,6 +162,7 @@ public class BaseAction {
 			mp = 0;
 			point = 0;
 			targetUnit = TargetUnit.none;
+			effect = null;
 			isEntire = false;
 			isHeal = false;
 			isReact = false;
@@ -219,6 +233,16 @@ public class BaseAction {
 		 */
 		public Builder targetUnit(TargetUnit targetUnit) {
 			this.targetUnit = targetUnit;
+			return this;
+		}
+		
+		/**
+		 * アクションの影響を指定する.
+		 * @param effect エフェクト
+		 * @return this
+		 */
+		public Builder effect(Effect effect) {
+			this.effect = effect;
 			return this;
 		}
 		

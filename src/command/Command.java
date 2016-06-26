@@ -7,6 +7,7 @@ import java.util.Scanner;
 import action.Action;
 import action.skill.ActionFactory;
 import main.NlabQuest;
+import main.TargetUnit;
 import unit.Unit;
 
 /**
@@ -38,7 +39,7 @@ public class Command extends BaseCommand {
 			
 			int n = Integer.valueOf(in);
 			return getAction(n);
-		} catch (NumberFormatException ex) {
+		} catch (Exception ex) {
 			return null;
 		}
 	}
@@ -50,6 +51,11 @@ public class Command extends BaseCommand {
 	 * @return 対象のユニットリスト、nullで失敗
 	 */
 	public List<Unit> showTarget(Action action, List<Unit> units) {
+		// target=noneならthrow
+		if (action.getTargetUnit() == TargetUnit.none) {
+			throw new UnsupportedOperationException("ターゲット未実装");
+		}
+		
 		// 全体=trueなら、リスト全体を対象
 		if (action.isEntire()) {
 			return units;
@@ -71,7 +77,7 @@ public class Command extends BaseCommand {
 			int n = Integer.valueOf(in);
 			list.add(units.get(n));
 			return list;
-		} catch (NumberFormatException ex) {
+		} catch (Exception ex) {
 			return null;
 		}
 	}

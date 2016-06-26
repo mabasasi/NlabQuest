@@ -39,6 +39,8 @@ public class BaseUnit {
 	
 	/**スキル*/
 	private Command command;
+	/**状態*/
+	private Status status;
 	
 	public BaseUnit(Builder builder) {
 		this.job = builder.job;
@@ -49,9 +51,13 @@ public class BaseUnit {
 		this.mp = builder.mp;
 		this.atk = builder.atk;
 		this.def = builder.def;
+		this.spd = builder.spd;
+		this.luck = builder.luck;
 		
 		this.command = new Command();
 		command.addAction(builder.skill.toArray(new Action[0]));
+		
+		this.status = new Status();
 	}
 	
 	/**
@@ -69,7 +75,7 @@ public class BaseUnit {
 	public void setCommand(Command command) {
 		command.addAction(this.command.getActionList().toArray(new Action[0]));
 		this.command = command;
-	}
+	}	
 	
 	/**
 	 * ユニットの現在HPを設定する.
@@ -117,6 +123,7 @@ public class BaseUnit {
 	 * @return 名前
 	 */
 	public String getName() {
+		if (name == null) return job;
 		return name;
 	}
 	
@@ -157,6 +164,11 @@ public class BaseUnit {
 	 * @return 攻撃力
 	 */
 	public int getAtk() {
+		if (status.isTwiceDamage()) {
+			System.out.println("二倍のダメージ！");
+			return atk * 2;
+		}
+		
 		return atk;
 	}
 	
@@ -169,6 +181,22 @@ public class BaseUnit {
 	}
 	
 	/**
+	 * ユニットの速度を取得する.
+	 * @return 速度
+	 */
+	public int getSpd() {
+		return spd;
+	}
+	
+	/**
+	 * ユニットの運を取得する.
+	 * @return 運
+	 */
+	public int getLuck() {
+		return luck;
+	}
+	
+	/**
 	 * ユニットのコマンドクラスを取得する.
 	 * @return　コマンドクラス
 	 */
@@ -176,6 +204,13 @@ public class BaseUnit {
 		return command;
 	}
 	
+	/**
+	 * ユニットのステータスクラスを取得する.
+	 * @return ステータスクラス
+	 */
+	public Status getStatus() {
+		return status;
+	}
 	
 	
 	/**
@@ -299,6 +334,5 @@ public class BaseUnit {
 			skill.add(action);
 			return this;
 		}
-		
 	}
 }

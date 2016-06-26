@@ -2,6 +2,7 @@ package action;
 
 import java.util.List;
 
+import unit.Status;
 import unit.Unit;
 
 /**
@@ -73,8 +74,11 @@ public abstract class AbstractAction extends Action {
 	 * @return trueでダメージをあたえた、falseでダメージを与えられなかった.
 	 */
 	protected boolean calc(Unit own, Unit tg) {
+		Status stat = own.getStatus();
+		
 		// ダメージを計算
 		int dmg = (int) this.damage(own, tg);
+		
 		if (dmg <= 0) {
 			System.out.println(showInvalidMessage(own, tg));
 			return false;

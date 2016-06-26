@@ -32,7 +32,7 @@ public class DescriptAction extends Action {
 				System.out.println(showSkill(act));
 				System.out.println("----------------------------------------");
 			}
-		} catch (NumberFormatException ex) {  }
+		} catch (Exception ex) {  }
 	}
 
 	

@@ -12,7 +12,8 @@ public class UnitFactory {
 		return new Unit(Unit.builder().job("ゆうしゃ").name(name)
 				.hp(320).mp(24).atk(30).def(20)
 				.action(ActionFactory.slash())
-				.action(ActionFactory.hoimi()));
+				.action(ActionFactory.hoimi())
+				.action(ActionFactory.baikirut()));
 	}
 	
 	public static Unit wizard(String name) {
@@ -29,13 +30,16 @@ public class UnitFactory {
 	
 	public static Unit warrior(String name) {
 		return new Unit(Unit.builder().job("せんし").name(name)
-				.hp(360).mp(0).atk(30).def(40));
+				.hp(360).mp(50).atk(30).def(40)
+				.action(ActionFactory.doubleAttack()));
 	}
 	
 	
 	public static Unit kingDevil(String name) {
-		return new Unit(Unit.builder().job("まおう").name(name)
+		Unit unit = new BossUnit(Unit.builder().job("まおう").name(name)
 				.hp(600).mp(75).atk(70).def(0)
 				.action(ActionFactory.ionazun()));
+		unit.getStatus().setDoubleAttack(1);
+		return unit;
 	}
 }

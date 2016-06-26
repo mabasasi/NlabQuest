@@ -1,6 +1,7 @@
 package action.skill;
 
 import action.Action;
+import action.effect.TwiceDamage;
 import main.TargetUnit;
 
 /**
@@ -9,10 +10,29 @@ import main.TargetUnit;
  * @author morishige
  */
 public class ActionFactory  {
+	/*
+	    private String name;
+		private String showName;
+		private String note;
+		private int mp;
+		private int point;
+		private TargetUnit targetUnit;
+		private boolean isEntire;
+		private boolean isHeal;
+		private boolean isReact;
+	 */
+	
 	
 	public static Action singleAttack() {
 		return new DefaultAttack(Action.builder().name("通常攻撃").showName("こうげき")
 				.note("通常攻撃.\n全てのユニットが使用できる.")
+				.targetUnit(TargetUnit.enemy));
+	}
+	
+	public static Action doubleAttack() {
+		return new DoubleAttack(Action.builder().name("ダブルアタック").showName("ダブルアタック")
+				.note("2回攻撃.\n通常攻撃を2回行うことが出来る.")
+				.mp(10).point(0)
 				.targetUnit(TargetUnit.enemy));
 	}
 	
@@ -22,6 +42,21 @@ public class ActionFactory  {
 				.mp(8).point(10)
 				.targetUnit(TargetUnit.enemy));
 	}
+	
+	
+	
+	public static Action baikirut() {
+		return new EffectAction(Action.builder().name("バイキルト").showName("バイキルト")
+				.note("次の攻撃のダメージを二倍にする.")
+				.mp(5)
+				.targetUnit(TargetUnit.own)
+				.effect(new TwiceDamage()));
+	}
+	
+	
+	
+	
+	
 	
 	
 	public static Action mera() {
@@ -49,7 +84,7 @@ public class ActionFactory  {
 	
 	public static Action descript() {
 		return new DescriptAction(Action.builder().name("説明").showName("せつめい")
-				.note("行動.\nスキルの説明を表示する.").isEntire(true).isReact(true));
+				.note("行動.\nスキルの説明を表示する.").targetUnit(TargetUnit.own).isReact(true));
 	}
 	
 }

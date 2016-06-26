@@ -5,6 +5,10 @@ import java.util.List;
 
 import action.Action;
 
+/**
+ * コマンド基底クラス.
+ * @author shunichi
+ */
 public class BaseCommand {
 
 	private List<Action> skill;

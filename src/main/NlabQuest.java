@@ -19,36 +19,34 @@ public class NlabQuest {
 	public static void main(String[] args) throws InterruptedException {
 		
 		UnitManager manager = new UnitManager();
-		manager.addPartyUnit(UnitFactory.hero("Aさん"));
-		manager.addPartyUnit(UnitFactory.wizard("Bさん"));
-		manager.addPartyUnit(UnitFactory.sage("Cさん"));
-		manager.addPartyUnit(UnitFactory.warrior("Dさん"));
+		manager.addPartyUnit(UnitFactory.hero(null));
+		manager.addPartyUnit(UnitFactory.wizard(null));
+		manager.addPartyUnit(UnitFactory.sage(null));
+		manager.addPartyUnit(UnitFactory.warrior(null));
 		
-		manager.addEnemyUnit(UnitFactory.kingDevil("まおー"));
+		
+		manager.addEnemyUnit(UnitFactory.kingDevil(null));
 
 		
 		
+		UnitTurnMover mover = new UnitTurnMover(manager);
 		
 		
 		
+		System.out.println("");
 		System.out.println("help 実装したんで、使って下さい。");
 		// 無限ループ(HPが0になったら終了)
 		int turn = 1;
+		
 		main:
 		while(true) {
-			System.out.println("\n<<"+(turn++)+" ターン目>>");
+			System.out.println("\n<<"+(turn++)+" ターン目>>------------------------------");
 			manager.showStatus();
 			Toolkit.getDefaultToolkit().beep();
 			
 			// 各ユニットの行動
-			for (Unit unit : manager.getUnits(null, TargetUnit.all)) {
-				// 生存しているなら行動する
-				if (unit.isSurvive()) {
-					unit.command(manager, false);
-					if (!manager.isSurvive()) {
-						break main;
-					}
-				}
+			for (Unit unit : manager.getUnits(null, TargetUnit.all)) {				
+				if (mover.turn(unit))	break main;
 			}
 		}
 		
